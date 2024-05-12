@@ -986,10 +986,10 @@ def _par_step_prosumers_init(func, config, path_weather):
     df_weather = df_weather.astype({'ts_delivery_current': 'int', 'ts_delivery_fcast': 'int'})
     df_weather.set_index(["ts_delivery_current", "ts_delivery_fcast"], inplace=True)
 
-    t_first = pd.Timestamp(config["simulation"]["sim_start"],
-                           tz=config["simulation"]["sim_start_tz"]).timestamp() - 60
-    t_last = t_first + config["simulation"]["sim_length"] * 86400 + 86400
-    t_first_history = t_first - 100 * 86400
+    t_first = int(pd.Timestamp(config["simulation"]["sim_start"],
+                           tz=config["simulation"]["sim_start_tz"]).timestamp() - 60)
+    t_last = int(t_first + config["simulation"]["sim_length"] * 86400 + 86400)
+    t_first_history = int(t_first - 100 * 86400)
 
     # slice weather data into historical data for forecast algorithm training (100 days)
     # as well as perfect forecasting
